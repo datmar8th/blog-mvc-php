@@ -1,0 +1,56 @@
+body section.bg-image {
+    background-image: url(../img/download.jpeg);
+}
+
+.gradient-custom-3 {
+    /* fallback for old browsers */
+    background: #84fab0;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+    }
+.gradient-custom-4 {
+    /* fallback for old browsers */
+    background: #84fab0;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+}
+
+.link-btn {
+    padding: 30px 10px 20px;
+    text-decoration: none;
+    width: 80%;
+    border-radius: 10px;
+    border: 1px solid #aaa;
+}
+
+.link-btn:hover {
+    box-shadow: 0px 0px 7px 7px rgba(0,0,0,0.2);
+    transform: translateY(-4px);
+    transition: all ease-in 0.3s;
+}
+
+.img-btn {
+    width: 120px;
+}
+
+.link-btn h3 {
+    margin-top: 8px;    
+}
+
+/* User profile css */
+.profile-page {
+    background-color: #eee;
+}
+
+.profile-avatar {
+    width: 150px !important;
+    height: 150px !important;
+}

@@ -1,0 +1,27 @@
+body {
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+  color: #5a5a5a;
+  background-color: #f0f0f0 !important;
+}
+main >.container:first-child {
+	min-height: 500px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.btn-custom-auth {
+  background-color: #f05123 !important;
+}
+
+.btn-custom-auth:hover {
+  background-color: #b92a03 !important;
+}
