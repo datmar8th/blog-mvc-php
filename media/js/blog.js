@@ -41,32 +41,33 @@ var Comment = {
 	addComment: function () {
 		$(Comment.SELECTORS.comment_form).on("click", Comment.SELECTORS.comment_button,	function (event) {
 			event.stopPropagation();
-			tc = $(this);
-			//var cf = confirm("Are you sure!");
-			// host = 'http://' + window.location.host;
-			//if (cf == true) {
-			url = tc.attr("alt");
-
+			var url = $(Comment.SELECTORS.comment_button).attr("alt"); // Get the form action URL
+			console.log(url);
+            var content = $(Comment.SELECTORS.comment).val();
 			$.ajax({
 				url: url,
 				type: "POST",
-				data: {
-					content: $(Comment.SELECTORS.comment).val(),
-				},
+				data: JSON.stringify({
+					content: content,
+				}),
+				contentType: "application/json; charset=utf-8", // Set content type to JSON
 				dataType: "json",
-			})
+				processData: false,
+      			cache: false,
+				})
 			.done(function (data) {
-				let html = Comment.renderComment(data, "likes", "comments", "add", "reply", "&comment_id="+data.id );				
+				let html = Comment.renderComment(data, "likes", "comments", "add", "reply", "&id="+data.id );				
 				$(Comment.SELECTORS.comment_ances).prepend(html);
 				$(Comment.SELECTORS.comment).val("");
 				//Comment.showFormReply();
 			})
 
 			.fail(function (xhr, status, errorThrown) {
-				alert("Sorry, there was a problem!");
 				console.log("Error: " + errorThrown);
 				console.log("Status: " + status);
 				console.dir(xhr);
+				//alert("Sorry, there was a problem!");
+
 			});
 			return false;
 		});
@@ -80,6 +81,8 @@ var Comment = {
 			$.ajax({
 				url: url,
 				type: "POST",
+				processData: false,
+      			cache: false,
 				dataType: "json",
 			})
 			.done(function (response) {
@@ -93,7 +96,7 @@ var Comment = {
 				$(Comment.SELECTORS.like_count + alt).html(response);
 			})
 			.fail(function (xhr, status, errorThrown) {
-				alert("Sorryyy, there was a problem!");
+				//alert("Sorryyy, there was a problem!");
 				console.log("Error: " + errorThrown);
 				console.log("Status: " + status);
 				console.dir(xhr);
@@ -146,6 +149,8 @@ var Comment = {
 					parentId: idCmt
 				},
 				dataType: "json",
+				processData: false,
+      			cache: false,
 			})
 			.done(function (data) {
 				let html = Comment.renderComment(data, "likes", "comments", "add", "reply", "&comment_id="+data.id ),
@@ -163,7 +168,7 @@ var Comment = {
 			})
 
 			.fail(function (xhr, status, errorThrown) {
-				alert('Sorry, vcccctoo many bugs');
+				//alert('Sorry, vcccctoo many bugs');
 				console.log("Error: " + errorThrown);
 				console.log("Status: " + status);
 				console.dir(xhr);
@@ -186,13 +191,15 @@ var Comment = {
 					content: $(Comment.SELECTORS.edit_content + Comment.alt(idCmt)).val(),
 				},
 				dataType: "json",
+				processData: false,
+      			cache: false,
 			})
 			.done( function(response) {
 				$(Comment.SELECTORS.comment_media + Comment.alt(idCmt) + " p").html(response.comment_content);
 				$(Comment.SELECTORS.edit_comment + Comment.alt(tc.attr("value"))).css("display", "none");
 			})
 			.fail(function (xhr, status, errorThrown) {
-				alert("Sorryyy, there was a problem!");
+				//alert("Sorryyy, there was a problem!");
 				console.log("Error: " + errorThrown);
 				console.log("Status: " + status);
 				console.dir(xhr);
@@ -213,13 +220,16 @@ var Comment = {
 					type: "POST",
 					data: {
 						blog_id: blog_id,
-					}
+					},
+					processData: false,
+      				cache: false,
+					
 				})
 				.done(function(response){
 					$(Comment.SELECTORS.comment_media + Comment.alt(tc.attr("value"))).html("").css({"border": "none", "padding": "0"});
 				})
 				.fail(function (xhr, status, errorThrown) {
-					alert("Sorryyy, there was a problem!");
+					//alert("Sorryyy, there was a problem!");
 					console.log("Error: " + errorThrown);
 					console.log("Status: " + status);
 					console.dir(xhr);
@@ -236,7 +246,7 @@ var Comment = {
 							<a class="pull-left" href="#"><img class="w-75 rounded-circle" src="${imgURL}"></a>\
 							<div class="media-body flex-grow-1">\
 								<h4 class="media-heading">${auth_name}</h4>\
-								<p>  ${data.comment_content} </p>\
+								<p>  ${data.content} </p>\
 								<div class="d-flex flex-row justify-content-between">\
 									<ul class="list-unstyled list-inline media-detail d-flex">\
 										<li><i class="fa fa-calendar"></i><span>${data.created}</span></li>\

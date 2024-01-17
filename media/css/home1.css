@@ -1,0 +1,61 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+main {
+    margin-top: 56px;
+}
+
+main h1 {
+    padding-top: 24px;
+}
+
+.rightcolumn {
+    padding-left: 20px;
+}
+
+.fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Add a card effect for articles */
+.blog-card {
+    background-color: #fff !important;
+    padding: 20px;
+    margin-top: 20px;
+    min-height: 200px;
+    border-radius: 10px;
+}
+
+.profile-avatar {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.user-info {
+    margin-right: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Footer */
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+
+    .leftcolumn,
+    .rightcolumn {
+        width: 100%;
+        padding: 0;
+    }
+}

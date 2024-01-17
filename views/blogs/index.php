@@ -38,7 +38,7 @@
 																											)
 																										]
 																									); ?>">
-										<i class="fa-solid fa-eye" aria-hidden="true"></i>
+										<i class="fas fa-eye" aria-hidden="true"></i>
 									</a>
 									<a class="btn btn-outline-warning" role="button" href="<?php echo html_helpers::url(
 																								array(

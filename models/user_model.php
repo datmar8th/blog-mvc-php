@@ -27,17 +27,20 @@ class user_model extends main_model {
 	}
 
 	public function loginData($user) {
-		$password = md5($user['password']);
-		$email = $user['email'];
-		$query = "SELECT * FROM $this->table WHERE email = '$email' AND password = '$password' ";
-		$result = mysqli_query($this->con,$query);
+		$password =  (md5($user['password']));
+		$email = ($user['email']);
+		
+		$password = mysqli_real_escape_string($this->con, $password);
+		$email = mysqli_real_escape_string($this->con, $email);
 
+		$query = "SELECT * FROM $this->table WHERE email = '$email' AND password = '$password'";
+		$result = mysqli_query($this->con,$query);
 		if ($result) {
 			$record = mysqli_fetch_assoc($result);
 		} else $record = false;
 		return $record;
 	}
-
+	
 	public function checkOldPassword($password) {
 		$email = ucfirst($_SESSION['auth']['email']);
 		$sql = "SELECT COUNT(id) as total  FROM `users` WHERE `email` = '".$email."' AND `password` = '".$password."'";

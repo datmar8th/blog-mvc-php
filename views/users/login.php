@@ -33,7 +33,7 @@
                                     <?php } ?>
 
                                     <div class="form-outline">
-                                        <input name="data[<?php echo $this->controller; ?>][email]" type="email" id="email" class="form-control form-control-lg" require />
+                                        <input name="data[<?php echo $this->controller; ?>][email]" type="text" id="email" class="form-control form-control-lg" require />
                                         <label class="form-label" for="email">Email</label>
                                     </div>
                                     <p class="mb-4 error email-error"></p>

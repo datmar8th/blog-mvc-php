@@ -44,10 +44,12 @@ array_push($mediaFiles['css'], RootREL . 'media/bootstrap/css/bootstrap.min.css'
                         <textarea name="data[<?php echo $this->controller; ?>][content]" id="content-blog"> <?php echo (isset($this->records)) ? $this->records['content'] : ""; ?> </textarea>
                     </div>
                 </div>
+                
 
                 <div class="row mb-3">
                     <div class="d-flex justify-content-center">
-                        <button name="edit_blog" type="submit" class="btn btn-custom-auth text-light">Edit</button>
+                        <button name="edit_blog" type="submit" class="btn btn-outline-dark me-5">Edit</button>
+                        <button name="cancel_edit_blog" type="submit" class="btn btn-outline-danger">Cancel</button>
                     </div>
                 </div>
             </form>

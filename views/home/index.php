@@ -1,27 +1,72 @@
-<?php include_once 'views/layout/'.$this->layout.'header.php'; ?>
+<?php
+global $mediaFiles;
+array_push($mediaFiles['css'], "/php-mvc/media/css/home1.css");
+array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
+//$blog = blog_model::getRecord('*', 'published = 1');
+?>
+<?php include_once 'views/layout/' . $this->layout . 'header.php'; ?>
 <div class="content">
-	<h1>This is home page of Fountain test</h1><br/>
-	<p>You will be asked to answer the following questions when submitting a proposal:<br/><br/>
-	<ol>
-		<li>Please create the first 2 tables of the attached brief by using Object-oriented PHP. DO NOT WRITE SQL CODE. Write the php OOP class that will enable to get/set every property of the table. Applications without this question answered will not be considererd</li>
-		<li>Do you have suggestions to make this project run successfully?</li>
-	</ol>
-	</p>
-	<hr>
-	<h2>List tables</h2>
-	<?php $usertables = [];  ?>
-	<?php if(count($this->tables)) { ?>
-		<ol>
-		<?php foreach($this->tables as $table) { ?>
-			<li><a href="<?php echo html_helpers::url(['ctl'=>'tables', 'act'=>'getfields', 'params'=>['table'=>$table]]); ?>"><?php echo $table ?></a></li>
-			<?php if($table == 'users' || $table == 'activity_user') array_push($usertables,$table);	; ?>
-		<?php } ?>
-		</ol>
-		<?php if(!count($usertables)) { ?>
-			<p> There are no users & activity_user tables added, please <a href="<?php echo html_helpers::url(['ctl'=>'tables', 'act'=>'create']); ?>">click here</a> to add 2 tables <strong>users</strong> & <strong>user_activity</strong> </p>
-		<?php } ?>
-	<?php } else {?>
-		<p> There are no table added, please <a href="<?php echo html_helpers::url(['ctl'=>'tables', 'act'=>'create']); ?>">click here</a> to add 2 tables <strong>users</strong> & <strong>user_activity</strong> </p>
-	<?php } ?>
+	<h2>List blogs</h2>
+	<?php $blogs = $this->records; ?>
+	<div class="row">
+		<div class="col-9">
+			<?php if (count($blogs)) { ?>
+				<?php foreach ($blogs as $blog) { ?>
+					<div class="row blog-card">
+						<div class="col-1">
+							<a class="text-decoration-none" href="<?php echo html_helpers::url(['ctl' => 'users', 'act' => 'user_profile']); ?>">
+								<img alt="avatar" class="rounded-circle img-fluid profile-avatar" src="media/upload/users/<?php if (empty($blog['avatar'])) {
+																																echo 'avatar-default.png';
+																															} else echo $blog['avatar'] ?>"></a>
+						</div>
+						<div class="col-11">
+							<div class="d-flex">
+								<a class="text-decoration-none " href="<?php echo html_helpers::url(['ctl' => 'users', 'act' => 'user_profile']); ?>">
+									<div class="user-info">
+										<h5 class="my-3"><?php echo $blog['fullname'] ?></h5>
+									</div>
+								</a>
+								<div class="user-info">
+										<h5 class="my-3"><?php echo $blog['created'] ?></h5>
+								</div>
+							</div>
+							<a class="text-decoration-none" href="<?php echo html_helpers::url(
+									[
+										'ctl' => 'blogs',
+										'act' => 'view',
+										'params' => array(
+											'id' => $blog['blog_id'],
+											'slug' => $blog['slug']
+										)
+									]
+								); ?>">
+									<h2><?php echo $blog['title'] ?></h2>
+									<div class="fakeimg"><img src="<?php echo "media/upload/blogs" . '/' . $blog['image']; ?>" alt="<?php echo $blog['id']; ?>" class="img-thumbnail"></div>
+								</a>
+						</div>
+					</div>
+				<?php } ?>
+			<?php } ?>
+		</div>
+		<div class="col-3">
+			<div class="blog-card">
+				<h2>About Me</h2>
+				<div class="fakeimg">
+					Image
+				</div>
+				<p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+			</div>
+			<div class="blog-card">
+				<h3>Popular Post</h3>
+				<div class="fakeimg">Image</div><br>
+				<div class="fakeimg">Image</div><br>
+				<div class="fakeimg">Image</div>
+			</div>
+			<div class="blog-card">
+				<h3>Follow Me</h3>
+				<p>Some text..</p>
+			</div>
+		</div>
+	</div>
 </div>
-<?php include_once 'views/layout/'.$this->layout.'footer.php'; ?>
+<?php include_once 'views/layout/' . $this->layout . 'footer.php'; ?>

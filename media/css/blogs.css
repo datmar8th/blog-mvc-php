@@ -1,0 +1,62 @@
+p {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+
+.user-avatar img {
+    width: 36px;
+    max-height: 36px;
+}
+
+.blog-user p a {
+    text-decoration: none;
+    color: #47cfc4;
+}
+
+.blog-user p a:hover {
+    text-decoration: underline;
+}
+
+h4 a {
+    text-decoration: none;
+    color: #000;
+}
+
+h4 a:hover {
+    color: blue;
+}
+
+ul.status {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul.status li {
+    align-items: center;
+}
+
+ul.status li a{
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+ul.status li .like-icon img:hover {
+    border-radius: 50%;
+    box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.65);
+}
+
+ul.status li a p {
+    white-space: nowrap;
+}
+
+ul.status a img {
+    width: 100%;
+}
+
+.list-group-item.active {
+    background-color: #f05123 !important;
+    border-color: #f05123 !important;
+}

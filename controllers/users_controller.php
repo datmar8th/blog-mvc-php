@@ -40,21 +40,16 @@ class users_controller extends main_controller
             } elseif ($userData['password'] !== $userData['confirm']) {
                 $this->errors = "Passwords do not match.";
             } else {
-                // Xóa trường 'confirm' sau khi kiểm tra mật khẩu
-                unset($userData['confirm']);
-    
+                unset($userData['confirm']); //xoa confirm password
                 if ($this->user->usernameExists($userData['username'])) {
                     $this->errors = "Username already exists. Choose a different username.";
                 } elseif ($this->user->emailExists($userData['email'])) {
                     $this->errors = "Email already exists. Choose a different email.";
                 } else {
-                    // Dữ liệu hợp lệ, thử thêm bản ghi
                     if ($this->user->addRecord($userData)) {
-                        // Đăng ký thành công, chuyển hướng đến trang đăng nhập
                         header("Location: ".html_helpers::url(array('ctl'=>'users', 'act'=>'login')));
                         exit();
                     } else {
-                        // Lỗi khi thêm bản ghi, hiển thị thông báo lỗi
                         $this->errors = "An error occurred during registration. Please try again.";
                     }
                 }
@@ -117,7 +112,6 @@ class users_controller extends main_controller
                 header( "Location: ".html_helpers::url(array('ctl'=>'users', 'act'=>'user_profile')));
             }
         }
-
         $this->display();
     }
 

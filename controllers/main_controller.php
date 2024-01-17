@@ -6,7 +6,9 @@ class main_controller {
 	protected $action = "index";
 	protected $tables;
 	protected $records;
-	
+	protected $blogs;
+	protected $users;
+	protected $commentRecords;
 	
 	public function  __construct() {
 		global $cn, $app;

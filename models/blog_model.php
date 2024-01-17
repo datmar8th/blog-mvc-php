@@ -26,4 +26,12 @@ class blog_model extends main_model
 		$record = mysqli_query($this->con,$query);
 		return $record;
 	}
+
+	public function getAllBlogs()
+	{
+		$query = "SELECT *, blogs.id as blog_id FROM `blogs` INNER JOIN `users` ON users.id = blogs.user_id";
+		$result = mysqli_query($this->con, $query);
+		$result = $result->fetch_all(MYSQLI_ASSOC);
+		return $result;
+	}
 }
