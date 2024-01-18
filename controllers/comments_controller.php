@@ -55,7 +55,7 @@ class comments_controller extends main_controller
     }
 
     public function edit() {
-        $oldCmt = $this->comment->getRecord($_POST['comment_id']);
+        $oldCmt = $this->comment->getRecord($_POST['id']);
         $newCmt = $oldCmt;
         if ($_POST['edit_comment_content'] != $oldCmt['comment_content']) {
             // $historyCmt = [
@@ -64,8 +64,8 @@ class comments_controller extends main_controller
             // ];
             //$this->comment->addHistoryComment($historyCmt);
             $newCmt['comment_content'] = $_POST['edit_comment_content'];
-            $this->comment->editRecord($_POST['comment_id'], $newCmt);
-            $obj_data = $this->comment->getRecord($_POST['comment_id']);
+            $this->comment->editRecord($_POST['id'], $newCmt);
+            $obj_data = $this->comment->getRecord($_POST['id']);
             if ($obj_data) {
                 $data = [
                     'status' => true,
@@ -83,6 +83,7 @@ class comments_controller extends main_controller
         foreach ($get_all_comment_blog as $cmt) {
 			if (str_contains($cmt['path'], $detail_comment['path'])) {
 				$this->comment->delRecord($cmt['id']);
+                $this->like->delLikeRecord($_SESSION['auth']['id'], $cmt['id']);
 			}
 		}
         $data = [

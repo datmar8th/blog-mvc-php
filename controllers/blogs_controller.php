@@ -2,9 +2,14 @@
 class blogs_controller extends main_controller
 {
     protected blog_model $blog;
+	protected like_model $like;
+	protected comment_model $comment;
+
     public function __construct()
     {
         $this->blog = blog_model::getInstance();
+		$this->comment = comment_model::getInstance();
+		$this->like = like_model::getInstance();
         parent::__construct();
     }
 
@@ -43,10 +48,22 @@ class blogs_controller extends main_controller
 
 	public function getComment($id) 
 	{
-		$comment = comment_model::getInstance();
-		$record = $comment->getRecordUser($fields = '*', "blog_id =". $id);
+		$record = $this->comment->getRecordUser($fields = '*', "blog_id =". $id);
 		$this->setProperty('commentRecords', $record);
 		return $record;
+	}
+
+	public function getLike($id) {
+		$record = $this->like->getLikeRecord($_SESSION['auth']['id'], $id, "type_id", "type = 'comment'");
+		$this->setProperty('likeRecords', $record);
+		$liked = array();
+		foreach ($record as $parentArray) {
+			foreach ($parentArray as $k=>$v) {
+				// array_push($liked, $v);
+				$liked[]=$v;
+			}
+		}
+		return $liked;
 	}
 
 	public function view($id)
@@ -55,7 +72,7 @@ class blogs_controller extends main_controller
 		{
 			$this->getComment($id);
 			$this->getBlogData($id);
-			//$this->likeRecords=$this->getLike($id);
+			$this->likeRecords=$this->getLike($id);
 			$this->display();
 		} else {
             header( "Location: ".html_helpers::url(array('ctl'=>'users', 'act'=>'login')));

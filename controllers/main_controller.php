@@ -9,6 +9,7 @@ class main_controller {
 	protected $blogs;
 	protected $users;
 	protected $commentRecords;
+	protected $likeRecords;
 	
 	public function  __construct() {
 		global $cn, $app;

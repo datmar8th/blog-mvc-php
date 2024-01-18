@@ -39,8 +39,8 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
                             <div alt="<?php echo $data['id']; ?>" class="media d-flex flex-column <?php if (substr_count($data['path'], '.') == 1) echo 'ms-5';
                                                                                                     elseif (substr_count($data['path'], '.') > 1) echo 'ms-6' ?>">
                                 <div class="d-flex flex-row">
-                                    <a class="pull-left" href="#"><img class="w-75 h-75 rounded-circle" src="media/upload/users/<?php echo $data['avatar'] ?>"></a>
-                                    <div class="media-body flex-grow-1">
+                                    <a class="col-lg-2 pull-left" href="#"><img class="w-75 h-75 rounded-circle" src="media/upload/users/<?php echo $data['avatar'] ?>"></a>
+                                    <div class="col-lg-10 media-body flex-grow-1">
                                         <h4 class="media-heading"><?php echo $data['fullname']; ?></h4>
                                         <p><?php echo $data['comment_content'] ?></p>
 
@@ -52,38 +52,35 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
                                                         <?php echo $data['created'] ?>
                                                     </span>
                                                 </li>
-                                                <li class="like-group" alt="<?php echo $data['id']; ?>">
-                                                    <i class="fa fa-thumbs-up like-icon"></i>
-                                                    <span alt="<?php echo $data['id']; ?>"><?php echo $data['like_count']; ?></span>
+                                                <li class="like-group" alt="<?php echo $data['id'] ?>">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                    <span class="like-count" alt="<?php echo $data['id'] ?>">
+                                                        <?php echo $data['like_count']; ?>
+                                                    </span>
                                                 </li>
                                             </ul>
                                             <br>
                                             <ul class="list-unstyled list-inline media-detail d-flex icon">
                                                 <li>
-                                                    <a class="like-btn" href="" value="<?php echo $data['id']; ?>" alt="<?php $params = array('id' => $data['id']);
-                                                                                                                        echo html_helpers::url(
-                                                                                                                            array(
-                                                                                                                                'ctl' => 'likes',
-                                                                                                                                'act' => 'add',
-                                                                                                                                'params' => $params
-                                                                                                                            )
-                                                                                                                        ); ?>">
-                                                        <i class="fa-regular fa-thumbs-up"></i>
+                                                    <a class="like-btn <?php if (in_array($data['id'], $this->likeRecords)) {
+                                                                            echo "liked";
+                                                                        } ?>" alt="<?php echo $data['id']; ?>">
+                                                        <i class="fa-solid fa-thumbs-up like-icon"></i>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="reply-btn" value="<?php echo $data['id']; ?>">
+                                                    <a class="reply-btn" alt="<?php echo $data['id']; ?>">
                                                         <i class="fa-regular fa-message-dots"></i>
                                                     </a>
                                                 </li>
                                                 <?php if ($_SESSION['auth']['id'] == $data['user_id']) { ?>
                                                     <li>
-                                                        <a class="edit-btn" value="<?php echo $data['id']; ?>">
+                                                        <a class="edit-btn" alt="<?php echo $data['id']; ?>">
                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="delete-btn" value="<?php echo $data['id']; ?>">
+                                                        <a class="delete-btn" alt="<?php echo $data['id']; ?>">
                                                             <i class="fa-solid fa-trash-can"></i>
                                                         </a>
                                                     </li>
@@ -100,7 +97,7 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
                                         <fieldset>
                                             <div class="row">
                                                 <div class="col-sm-3 col-lg-2">
-                                                    <img class="w-75 h-75 rounded-circle" src="media/upload/users/<?php echo $_SESSION['auth']['avatar'] ?>">
+                                                    <img class="rounded-circle" src="media/upload/users/<?php echo $_SESSION['auth']['avatar'] ?>">
                                                 </div>
                                                 <div class="form-group col-xs-12 col-sm-9 col-lg-10">
                                                     <textarea name="reply_comment_content" class="reply-content form-control" alt="<?php echo $data['id'] ?>" placeholder="Your comment" required></textarea>
@@ -109,7 +106,7 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
                                         </fieldset>
                                         <div class="d-flex justify-content-end">
                                             <button class="btn btn-light cancel-reply-btn">Cancel</button>
-                                            <button name="reply" type="button" class="btn btn-custom-auth text-light reply-button" value="<?php echo $data['id'] ?>" data-blog="<?php echo $this->records['id'] ?>" alt="">Reply</button>
+                                            <button name="reply" type="button" class="btn btn-custom-auth text-light reply-button" alt="<?php echo $data['id'] ?>" data-blog="<?php echo $this->records['id'] ?>">Reply</button>
                                         </div>
                                     </form>
                                 </div>
@@ -120,7 +117,7 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
                                             <fieldset>
                                                 <div class="row">
                                                     <div class="col-sm-3 col-lg-2">
-                                                        <img class="w-75 h-75 rounded-circle" src="media/upload/users/<?php echo $_SESSION['auth']['avatar'] ?>">
+                                                        <img class="rounded-circle" src="media/upload/users/<?php echo $_SESSION['auth']['avatar'] ?>">
                                                     </div>
                                                     <div class="form-group col-xs-12 col-sm-9 col-lg-10">
                                                         <textarea name="edit_comment_content" class="edit-content form-control" alt="<?php echo $data['id'] ?>" value="<?php echo $data['comment_content'] ?>" required></textarea>
@@ -129,13 +126,7 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
                                             </fieldset>
                                             <div class="d-flex justify-content-end">
                                                 <button class="btn btn-light cancel-edit-btn">Cancel</button>
-                                                <button name="edit" type="button" class="btn btn-custom-auth text-light edit-button" value="<?php echo $data['id'] ?>" alt="<?php $params = array('id' => $data['id']);
-                                                                                                                                                                            echo html_helpers::url(
-                                                                                                                                                                                array(
-                                                                                                                                                                                    'ctl' => 'comments',
-                                                                                                                                                                                    'act' => 'edit',
-                                                                                                                                                                                )
-                                                                                                                                                                            ); ?>">Edit</button>
+                                                <button name="edit" type="button" class="btn btn-custom-auth text-light edit-button" alt="<?php echo $data['id'] ?>">Edit</button>
                                             </div>
                                         </form>
                                     </div>

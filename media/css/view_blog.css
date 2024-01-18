@@ -86,7 +86,7 @@
 
 #comments .media {
 	border-top: 1px dashed #DDDDDD;
-	padding: 20px 0;
+	padding: 20px 0 10px;
 	margin: 0;
 }
 
@@ -151,8 +151,12 @@
 	background-color: #b92a03 !important;
 }
 
+
+.fa-solid.fa-heart{
+	color:#000000 !important;
+}
 .media .liked .like-icon {
-	color: aqua !important;
+	color: rgb(8, 102, 255) !important;
 }
 
 .reply-comment, 
@@ -162,7 +166,8 @@
 
 a.reply-btn:hover,
 a.edit-btn:hover,
-a.delete-btn:hover {
+a.delete-btn:hover,
+a.like-btn:hover {
 	cursor: pointer;
 }
 
