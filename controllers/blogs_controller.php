@@ -13,6 +13,10 @@ class blogs_controller extends main_controller
         parent::__construct();
     }
 
+	public function setSlug($id) {
+	
+	}
+
     public function index()
     {
         if (isset($_SESSION['auth'])) {
@@ -48,7 +52,7 @@ class blogs_controller extends main_controller
 
 	public function getComment($id) 
 	{
-		$record = $this->comment->getRecordUser($fields = '*', "blog_id =". $id);
+		$record = $this->comment->getCommentRecord($fields = '*', "blog_id =". $id);
 		$this->setProperty('commentRecords', $record);
 		return $record;
 	}
@@ -107,7 +111,7 @@ class blogs_controller extends main_controller
 			$id = $_SESSION['auth']['id'];
 			$blogData = $_POST['data'][$this->controller];
 			date_default_timezone_set("Asia/Ho_Chi_Minh");
-			$slug = html_helpers::convert_name($blogData['title']." ".date("h:i:s", time())." ". strval((rand(0, 10000))));
+			$slug = html_helpers::convert_to_slug($blogData['title']." ".date("h:i:s", time()));
 			$blogData['slug'] = $slug;
 			$blogData['user_id'] = $id;
 			if (!empty($blogData['title'])) {
@@ -129,7 +133,7 @@ class blogs_controller extends main_controller
 		if (isset($_POST['edit_blog'])) {
 			$blogData = $_POST['data'][$this->controller];
 			date_default_timezone_set("Asia/Ho_Chi_Minh");
-			$slug = html_helpers::convert_name($blogData['title']." ".date("h:i:s", time())." ". strval((rand(0, 10000))));
+			$slug = html_helpers::convert_to_slug($blogData['title']." ".date("h:i:s", time()));
 			$blogData['slug'] = $slug;
 			if (!empty($blogData['title'])) {
 				if (isset($_FILES) and $_FILES["image"]["name"]) {

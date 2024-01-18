@@ -13,28 +13,26 @@ class likes_controller extends main_controller
     public function add($params)
     {
         $id = $_SESSION['auth']['id'];
-        $likeData = [
+        $like_data = [
             'user_id' => $id,
             'type_id' => $params['id'],
             'type' => 'comment',
         ];
-        $commentData = $this->comment->getRecord($params['id']);
+        $comment_data = $this->comment->getRecord($params['id']);
         $get_all_likes = $this->like->getAllRecords();
         foreach ($get_all_likes as $data) {
-            if (
-                $data['user_id'] == $likeData['user_id'] &&
-                $data['type_id'] == $likeData['type_id'] &&
-                $data['type'] == $likeData['type']
-            ) {
-                $commentData['like_count'] -= 1;
-                $this->comment->editRecord($commentData['id'], $commentData);
+            if ($data['user_id'] == $like_data['user_id'] &&
+                $data['type_id'] == $like_data['type_id'] &&
+                $data['type'] == $like_data['type']) {
+                $comment_data['like_count'] -= 1;
+                $this->comment->editRecord($comment_data['id'], $comment_data);
                 $this->like->delRecord($data['id']);
-                exit(json_encode($commentData['like_count']));
+                exit(json_encode($comment_data['like_count']));
             }
         }
-        $commentData['like_count'] += 1;
-        $this->comment->editRecord($commentData['id'], $commentData);
-        $this->like->addRecord($likeData);
-        exit(json_encode($commentData['like_count']));
+        $comment_data['like_count'] += 1;
+        $this->comment->editRecord($comment_data['id'], $comment_data);
+        $this->like->addRecord($like_data);
+        exit(json_encode($comment_data['like_count']));
     }
 }

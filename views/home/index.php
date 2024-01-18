@@ -27,7 +27,7 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
 									</div>
 								</a>
 								<div class="user-info">
-										<h5 class="my-3"><?php echo $blog['created'] ?></h5>
+										<h5 class="my-3"><?php echo $blog['blogs_created']; ?></h5>
 								</div>
 							</div>
 							<a class="text-decoration-none" href="<?php echo html_helpers::url(

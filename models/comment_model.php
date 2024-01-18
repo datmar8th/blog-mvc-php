@@ -16,7 +16,7 @@ class comment_model extends main_model {
         return parent::getRecord($last_record['id']);
     }
 
-    public function getRecordUser($fields = '*', $options = null)
+    public function getCommentRecord($fields = '*', $options = null)
 	{
 		$conditions = '';
 		if (isset($options)) {

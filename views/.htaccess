@@ -1,4 +1,4 @@
-<FilesMatch "\.(php)$">
+<!-- <FilesMatch "\.(php)$">
   <IfModule mod_headers.c>
     Header set Access-Control-Allow-Origin "*"
   </IfModule>
@@ -6,8 +6,27 @@
 <IfModule mod_rewrite.c>
    RewriteEngine on
 
-   RewriteRule (blogs/.*) $1 [L] # adjust the regex to what you want.
+   RewriteRule (mvc/.*) $1 [L] # adjust the regex to what you want.
 
    RewriteRule    ^$ app/webroot/    [L]
    RewriteRule    (.*) app/webroot/$1 [L]
+</IfModule> -->
+
+<FilesMatch "\.(php)$">
+  <IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  RewriteRule (mvc/.*) $1 [L] # adjust the regex to what you want.
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^blogs/(.*)$ index.php?ctl=blogs&act=view&id=$1 [QSA,L]
+
+  RewriteRule ^$ app/webroot/    [L]
+  RewriteRule (.*) app/webroot/$1 [L]
 </IfModule>

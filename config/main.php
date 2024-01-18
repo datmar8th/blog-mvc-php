@@ -14,7 +14,7 @@ define('RootREL', $relRoot);
 define('UploadREL', 'media/upload/');
 define('UploadURI', $relRoot.UploadREL);
 define('RootURI', dirname($_SERVER['SCRIPT_FILENAME'])."/");
-
+define('ControllerREL', 'controllers/');
 // Config for database
 define('DB_HOST','localhost');
 define('DB_USER','root');
@@ -23,6 +23,9 @@ define('DB_NAME','oopmvc1');
 
 // Global variables
 $app = [];
+$app['area'] = 'users';
+$app['areaPath'] = '';
+
 $app['recordTime'] = [
 	'created'	=>	'created',
 	'updated'	=>	'updated'

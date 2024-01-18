@@ -1,4 +1,11 @@
 $(document).ready(function () {
+
+	var currentUrl = window.location.href;
+	var desiredPath = currentUrl.split('index.php')[0];
+	var slug = currentUrl.split('slug=')[1];
+	var newUrl = desiredPath + slug;
+	history.pushState({}, '', newUrl);
+
 	//disable button Comment
 	$(".comment-btn").attr("disabled", true);
 	$("#message").on("input", function () {
@@ -19,7 +26,7 @@ $(document).ready(function () {
 		replyButton.prop("disabled", $(this).val().trim() === "");
 	});
 	//display reply form
-	$(".comment-ances").on("click", '.reply-btn', function (e) {
+	$(".comment-ances").on("click", ".reply-btn", function (e) {
 		e.preventDefault();
 		let replyCmt = $(".reply-comment" + alt($(this).attr("alt")));
 		let editCmt = $(".edit-comment" + alt($(this).attr("alt")));
@@ -205,7 +212,7 @@ $(document).ready(function () {
 			})
 	})
 	//render comment
-	const renderComment = (data, ctl_like, ctl_comment, act_like, act_reply, params) => {
+	const renderComment = (data) => {
 		avtURL = "media/upload/users/" + auth_avt;
 		let html = `<div class="media d-flex flex-column" alt="${data.id}">\
 		<div class="d-flex flex-row">\

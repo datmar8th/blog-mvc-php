@@ -41,6 +41,30 @@ class main_controller {
 		}
 	}
 
+	// public function  __construct() {
+	// 	global $app;
+	// 	$this->controller = $app['ctl'];
+	// 	if(isset($app['act'])) $this->action = $app['act'];
+	// 	else $app['act'] = $this->action;
+	// 	// $this->isMobile = false;
+	// 	// $detect = new vendor_mobiledetect_helper();
+	// 	// if ($detect->isMobile()){
+	// 	// 	$this->isMobile = true;
+	// 	// }
+	// 	if(method_exists($this, $this->action)) {
+	// 		if(isset($app['prs']) && count($app['prs'])) {
+	// 			$str = $this->toString($app['prs']);
+	// 			if (preg_match('/[\'\.\"]/', $str)) {
+	// 				include "views/".$app['areaPath']."staticpages/error.php";
+	// 				exit();
+	// 			}
+	// 			$this->{$this->action}($app['prs']);
+	// 		} else $this->{$this->action}();
+	// 	} else {
+	// 		include "views/".$app['areaPath']."staticpages/error.php";
+	// 	}
+	// }
+
 	public function checkAuth($datas=null) {
 		if($_SESSION['auth']) {
 			$this->display();
