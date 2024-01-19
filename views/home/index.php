@@ -30,7 +30,7 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
 										<h5 class="my-3"><?php echo $blog['blogs_created']; ?></h5>
 								</div>
 							</div>
-							<a class="text-decoration-none" href="<?php echo html_helpers::url(
+							<a class="text-decoration-none d-flex" href="<?php echo html_helpers::url(
 									[
 										'ctl' => 'blogs',
 										'act' => 'view',
@@ -40,8 +40,15 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
 										)
 									]
 								); ?>">
-									<h2><?php echo $blog['title'] ?></h2>
-									<div class="fakeimg"><img src="<?php echo "media/upload/blogs" . '/' . $blog['image']; ?>" alt="<?php echo $blog['id']; ?>" class="img-thumbnail"></div>
+									<div class="col-4 fakeimg"><img src="<?php echo "media/upload/blogs" . '/' . $blog['image']; ?>" alt="<?php echo $blog['id']; ?>" class="img-thumbnail"></div>
+									<div class="col-8">
+										<h2><?php echo $blog['title'] ?></h2>
+										<p><?php echo $blog['category'] ?></p>
+										<div class="d-flex align-items-center">
+											<i class="fa-solid fa-comment"></i>
+											<span class="ms-1" ><?php echo $blog['count_comment']; ?></span>
+										</div>
+									</div>
 								</a>
 						</div>
 					</div>

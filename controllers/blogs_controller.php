@@ -13,10 +13,6 @@ class blogs_controller extends main_controller
         parent::__construct();
     }
 
-	public function setSlug($id) {
-	
-	}
-
     public function index()
     {
         if (isset($_SESSION['auth'])) {
@@ -70,18 +66,30 @@ class blogs_controller extends main_controller
 		return $liked;
 	}
 
+	// public function getLike($id) {
+	// 	if (empty($_SESSION['auth']['id'])) {
+	// 		$_SESSION['auth']['id'] = -1;
+	// 		$record = $this->like->getLikeRecord($_SESSION['auth']['id'], $id, "type_id", "type = 'comment'");
+	// 		$this->setProperty('likeRecords', $record);
+	// 		$liked = array();
+	// 		foreach ($record as $parentArray) {
+	// 			foreach ($parentArray as $k=>$v) {
+	// 				// array_push($liked, $v);
+	// 				$liked[]=$v;
+	// 			}
+	// 		}
+	// 		return $liked;
+	// 	}
+	// }
+
+
 	public function view($id)
 	{
-		if(isset($_SESSION['auth'])) 
-		{
-			$this->getComment($id);
-			$this->getBlogData($id);
-			$this->likeRecords=$this->getLike($id);
-			$this->display();
-		} else {
-            header( "Location: ".html_helpers::url(array('ctl'=>'users', 'act'=>'login')));
-		}
-
+		$this->getBlogData($id);
+		$this->getComment($id);
+		$this->likeRecords=$this->getLike($id);
+		
+		$this->display();
 	}
 
 	public function add()

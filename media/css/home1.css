@@ -18,9 +18,15 @@ main h1 {
 }
 
 .fakeimg {
-    background-color: #aaa;
-    width: 100%;
+    background-color: #ffffff;
     padding: 20px;
+}
+/* .col-8 p,.col-8 h2 {
+    color: #000000;
+} */
+
+a {
+    color: #000;
 }
 
 /* Add a card effect for articles */

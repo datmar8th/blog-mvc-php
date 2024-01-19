@@ -45,6 +45,12 @@ array_push($mediaFiles['css'], RootREL . 'media/bootstrap/css/bootstrap.min.css'
                     </div>
                 </div>
                 
+                <div class="row mb-3">
+                    <label for="title-blog" class="col-sm-2 col-form-label mb-1">Category</label>
+                    <div>
+                        <textarea class="col-sm-12" name="data[<?php echo $this->controller; ?>][category]" id="content-blog"> <?php echo (isset($this->records)) ? $this->records['category'] : ""; ?> </textarea>
+                    </div>
+                </div>
 
                 <div class="row mb-3">
                     <div class="d-flex justify-content-center">

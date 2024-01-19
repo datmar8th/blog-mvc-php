@@ -42,7 +42,7 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
                             <div alt="<?php echo $datas['id']; ?>" class="media d-flex flex-column <?php if (substr_count($datas['path'], '.') == 1) echo 'ms-5';
                                                                                                     elseif (substr_count($datas['path'], '.') > 1) echo 'ms-6' ?>">
                                 <div class="d-flex flex-row">
-                                    <a class="col-lg-2 pull-left" href="#"><img class="w-75 h-75 rounded-circle" src="media/upload/users/<?php if (empty($datas['avatar'])) {
+                                    <a class="col-lg-2 pull-left"><img class="w-75 h-75 rounded-circle" src="media/upload/users/<?php if (empty($datas['avatar'])) {
 																															                    echo 'avatar-default.png';
 																														                        } else echo $datas['avatar'] ?>"></a>
                                     <div class="col-lg-10 media-body flex-grow-1">

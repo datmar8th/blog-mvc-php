@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
-	var currentUrl = window.location.href;
-	var desiredPath = currentUrl.split('index.php')[0];
-	var slug = currentUrl.split('slug=')[1];
-	var newUrl = desiredPath + slug;
-	history.pushState({}, '', newUrl);
+	// var currentUrl = window.location.href;
+	// var desiredPath = currentUrl.split('index.php')[0];
+	// var slug = currentUrl.split('slug=')[1];
+	// var newUrl = desiredPath + slug;
+	// history.pushState({}, '', newUrl);
 
 	//disable button Comment
 	$(".comment-btn").attr("disabled", true);
