@@ -1,24 +1,14 @@
 <?php
 class blogs_controller extends main_controller
 {
-    protected blog_model $blog;
-	protected like_model $like;
-	protected comment_model $comment;
-
-    public function __construct()
-    {
-        $this->blog = blog_model::getInstance();
-		$this->comment = comment_model::getInstance();
-		$this->like = like_model::getInstance();
-        parent::__construct();
-    }
-
+	
     public function index()
     {
         if (isset($_SESSION['auth'])) {
             $id = $_SESSION['auth']['id'];
             $fields = "id, title, category, content, image, slug";
-            $record = $this->blog->getRecordByUserId($id, $fields);
+			$blogModel = blog_model::getInstance();
+            $record = $blogModel->getRecordByUserId($id, $fields);
             $this->setProperty('records', $record);
             $this->checkAuth();
         } else {
@@ -27,68 +17,21 @@ class blogs_controller extends main_controller
         $this->display();
     }
 
-    public function create()
-    {
-        $user = user_model::getInstance();
-		$user->createTable();
+	public function view($id) {
+		$blogsRepository = blog_repository::getInstance();
 
-		$activity = activity_model::getInstance();
-		$activity->createTable();
+		$blogModel = blog_model::getInstance();
+		$blogRecord = $blogModel->getRecord($id);
+		$this->setProperty('records', $blogRecord);
 
-		$this->blogs = $user->getAllTables();
-		$this->display();
-    }
-
-    public function getBlogData($id) 
-	{
-		$record = $this->blog->getRecord($id);
-		$this->setProperty('records', $record);
-		return $record;
-	}
-
-	public function getComment($id) 
-	{
-		$record = $this->comment->getCommentRecord($fields = '*', "blog_id =". $id);
-		$this->setProperty('commentRecords', $record);
-		return $record;
-	}
-
-	public function getLike($id) {
-		$record = $this->like->getLikeRecord($_SESSION['auth']['id'], $id, "type_id", "type = 'comment'");
-		$this->setProperty('likeRecords', $record);
-		$liked = array();
-		foreach ($record as $parentArray) {
-			foreach ($parentArray as $k=>$v) {
-				// array_push($liked, $v);
-				$liked[]=$v;
-			}
-		}
-		return $liked;
-	}
-
-	// public function getLike($id) {
-	// 	if (empty($_SESSION['auth']['id'])) {
-	// 		$_SESSION['auth']['id'] = -1;
-	// 		$record = $this->like->getLikeRecord($_SESSION['auth']['id'], $id, "type_id", "type = 'comment'");
-	// 		$this->setProperty('likeRecords', $record);
-	// 		$liked = array();
-	// 		foreach ($record as $parentArray) {
-	// 			foreach ($parentArray as $k=>$v) {
-	// 				// array_push($liked, $v);
-	// 				$liked[]=$v;
-	// 			}
-	// 		}
-	// 		return $liked;
-	// 	}
-	// }
+		$commentModel = comment_model::getInstance();
+		$commentRecords = $commentModel->getCommentRecord($id);
+		$this->setProperty('commentRecords', $commentRecords);
 
 
-	public function view($id)
-	{
-		$this->getBlogData($id);
-		$this->getComment($id);
-		$this->likeRecords=$this->getLike($id);
-		
+		//$this->likeRecords=$this->getLike($id);
+		// $likeRecords = $blogsRepository->getLike($id);
+		// $this->setProperty('likeRecords', $likeRecords);
 		$this->display();
 	}
 
@@ -99,22 +42,25 @@ class blogs_controller extends main_controller
 
 	public function edit($id)
 	{
-		$record = $this->getBlogData($id);
-		if($this->checkCurrentAuth($record['user_id'])) $this->display();		
+		$blogModel = blog_model::getInstance();
+		$blogRecord = $blogModel->getRecord($id);
+		if($this->checkCurrentAuth($blogRecord['user_id'])) $this->display();		
 	}
 
 	public function del($id) 
 	{
-		$record = $this->blog->getRecord($id);
+		$blogModel = blog_model::getInstance();
+		$record = $blogModel->getRecord($id);
 		if(file_exists(RootURI."/media/upload/" .$this->controller.'/'.$record['image']))
 			unlink(RootURI."/media/upload/" .$this->controller.'/'.$record['image']);
 			
-		$this->blog->delRecord($id);
+		$blogModel->delRecord($id);
 		header( "Location: ".html_helpers::url(array('ctl'=>'blogs')));
 	}
 
 	public function createSubmit()
 	{
+		$blogModel = blog_model::getInstance();
 		if (isset($_POST['add_blog'])) {
 			$id = $_SESSION['auth']['id'];
 			$blogData = $_POST['data'][$this->controller];
@@ -126,7 +72,7 @@ class blogs_controller extends main_controller
 				if (isset($_FILES) and $_FILES["image"]["name"]) {
 					$blogData['image'] = SimpleImage_Component::uploadImg($_FILES, $this->controller);
 				}
-				if ($this->blog->addRecord($blogData)) {
+				if ($blogModel->addRecord($blogData)) {
 					header("Location: " . html_helpers::url(array('ctl' => 'blogs')));
 				}
 			}
@@ -135,6 +81,8 @@ class blogs_controller extends main_controller
 
 	public function editSubmit($id)
 	{
+		$blogModel = blog_model::getInstance();
+
 		$records = $this->getData($_SESSION['auth']['id'], 'edit');
 		$this->setProperty('records',$records);
 		
@@ -149,7 +97,7 @@ class blogs_controller extends main_controller
 					unlink(UploadREL .$this->controller.'/'.$records['image']);
 					$blogData['image'] = SimpleImage_Component::uploadImg($_FILES, $this->controller);
 				}				
-				if ($this->blog->editRecord($id, $blogData)) {
+				if ($blogModel->editRecord($id, $blogData)) {
 					header("Location: " . html_helpers::url(array('ctl' => 'blogs')));
 				}
 			}

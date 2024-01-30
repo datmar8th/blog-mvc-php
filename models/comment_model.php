@@ -16,13 +16,19 @@ class comment_model extends main_model {
         return parent::getRecord($last_record['id']);
     }
 
-    public function getCommentRecord($fields = '*', $options = null)
+    public function getCommentRecord($id = null, $fields = '*', $options = null)
 	{
 		$conditions = '';
 		if (isset($options)) {
 			$conditions .= ' and ' . $options;
 		}
-		$query = "SELECT $fields FROM users INNER JOIN $this->table ON $this->table.user_id = users.id $conditions ORDER BY $this->table.path ASC";
+		// $query = "SELECT $fields FROM users INNER JOIN $this->table ON $this->table.user_id = users.id $conditions ORDER BY $this->table.path ASC";
+		$query = "SELECT users.fullname, users.avatar, comments.*, GROUP_CONCAT(likes.user_id) AS userLikes FROM users
+					INNER JOIN comments ON comments.user_id = users.id and blog_id = $id
+					LEFT JOIN likes ON likes.type_id = comments.id AND likes.type = 'comment'
+					GROUP BY comments.id ORDER BY comments.path ASC";
+		
+		
 		$result = mysqli_query($this->con, $query);
 		$result = $result->fetch_all(MYSQLI_ASSOC);
 		return $result;
@@ -38,6 +44,26 @@ class comment_model extends main_model {
 		parent::editRecord($last_record['id'], $updatePath);
 		return parent::getRecord($last_record['id']);
 	}
+
+	// public function getViewBlog($id) {
+	// 	$query = "SELECT b.*, c.*, l.*
+    //           FROM blogs b
+    //           LEFT JOIN comments c ON b.id = c.blog_id
+    //           LEFT JOIN likes l ON c.id = l.type_id AND l.type = 'comment'
+    //           WHERE b.id = $id";	  
+	// 	$result = mysqli_query($this->con, $query);
+	// 	$result = $result->fetch_all(MYSQLI_ASSOC);
+
+	// 	$viewData = [];
+	// 	while ($row = $result) {
+	// 		$viewData['blogRecord'] = $row; // Thông tin blog
+	// 		$viewData['commentRecords'][] = $row; // Thông tin comment
+	// 		if (!empty($row['like_id'])) {
+	// 			$viewData['likeRecords'][] = $row; // Thông tin like
+	// 		}
+	// 	}
+	// 	return $viewData;
+	// }
 
 	// public function addHistoryComment($datas) {
 	// 	global $app;
@@ -60,5 +86,6 @@ class comment_model extends main_model {
 	// 	}		
 	// 	return mysqli_query($this->con, $query);
 	// }
+
 }
 ?>

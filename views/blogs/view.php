@@ -16,7 +16,7 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-sm-10 comment-contain">
-                    <form name="comment-form" class="comment-form">
+                    <form class="comment-form">
                         <h3>Comment</h3>
                         <fieldset>
                             <div class="row">
@@ -26,12 +26,12 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
 																										} else echo $data['avatar'] ?>">
                                 </div>
                                 <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                                    <textarea name="comment_content" class="form-control" id="message" placeholder="Your comment" required></textarea>
+                                    <textarea class="comment-content form-control" id="message" placeholder="Your comment" required></textarea>
                                 </div>
                             </div>
                         </fieldset>
                         <div class="d-flex justify-content-end">
-                            <button data-blog="<?php echo $this->records['id'] ?>" name="comment-btn" type="" class="btn btn-custom-auth text-light comment-btn" alt="" >Comment</button>
+                            <button data-blog="<?php echo $this->records['id'] ?>" type="" class="comment-btn btn btn-custom-auth text-light " >Comment</button>
                         </div>
                     </form>
 
@@ -67,9 +67,10 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
                                             <br>
                                             <ul class="list-unstyled list-inline media-detail d-flex icon">
                                                 <li>
-                                                    <a class="like-btn <?php if (in_array($datas['id'], $this->likeRecords)) {
-                                                                            echo "liked";
-                                                                        } ?>" alt="<?php echo $datas['id']; ?>">
+                                                    <a class="like-btn <?php if (in_array($_SESSION['auth']['id'], explode(",",$datas['userLikes']))) {
+                                                        echo "liked";
+                                                    } 
+                                                                        ?>" alt="<?php echo $datas['id']; ?>">
                                                         <i class="fa-solid fa-thumbs-up like-icon"></i>
                                                     </a>
                                                 </li>
@@ -98,7 +99,7 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
                                 </div>
 
                                 <div class="reply-comment" alt="<?php echo $datas['id'] ?>">
-                                    <form name="reply-form" class="reply-form ps-5 mt-3">
+                                    <form class="reply-form ps-5 mt-3">
                                         <fieldset>
                                             <div class="row">
                                                 <div class="col-sm-3 col-lg-2">
@@ -107,19 +108,19 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
 																												} else echo $data['avatar'] ?>">
                                                 </div>
                                                 <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                                                    <textarea name="reply_comment_content" class="reply-content form-control" alt="<?php echo $datas['id'] ?>" placeholder="Your comment" required></textarea>
+                                                    <textarea class="reply-content form-control" id="reply-content" alt="<?php echo $datas['id'] ?>" placeholder="Your comment" required></textarea>
                                                 </div>
                                             </div>
                                         </fieldset>
                                         <div class="d-flex justify-content-end">
                                             <button class="btn btn-light cancel-reply-btn">Cancel</button>
-                                            <button name="reply" type="button" class="btn btn-custom-auth text-light reply-button" alt="<?php echo $datas['id'] ?>" data-blog="<?php echo $this->records['id'] ?>">Reply</button>
+                                            <button type="button" class="btn btn-custom-auth text-light reply-button" alt="<?php echo $datas['id'] ?>" data-blog="<?php echo $this->records['id'] ?>">Reply</button>
                                         </div>
                                     </form>
                                 </div>
                                 <?php if ($_SESSION['auth']['id'] == $datas['user_id']) { ?>
                                     <div class="edit-comment" alt="<?php echo $datas['id'] ?>">
-                                        <form name="edit-form" class="edit-form ps-5 mt-3">
+                                        <form class="edit-form ps-5 mt-3">
                                             <h3 class="ps-4">Edit</h3>
                                             <fieldset>
                                                 <div class="row">
@@ -129,13 +130,13 @@ array_push($mediaFiles['css'], RootREL . 'media/fontawesome/css/all.css');
 																												} else echo $data['avatar'] ?>">
                                                     </div>
                                                     <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                                                        <textarea name="edit_comment_content" class="edit-content form-control" alt="<?php echo $datas['id'] ?>" value="<?php echo $datas['comment_content'] ?>" required></textarea>
+                                                        <textarea class="edit-content form-control" alt="<?php echo $datas['id'] ?>" value="<?php echo $datas['comment_content'] ?>" required></textarea>
                                                     </div>
                                                 </div>
                                             </fieldset>
                                             <div class="d-flex justify-content-end">
                                                 <button class="btn btn-light cancel-edit-btn">Cancel</button>
-                                                <button name="edit" type="button" class="btn btn-custom-auth text-light edit-button" alt="<?php echo $datas['id'] ?>">Edit</button>
+                                                <button type="button" class="btn btn-custom-auth text-light edit-button" alt="<?php echo $datas['id'] ?>">Edit</button>
                                             </div>
                                         </form>
                                     </div>

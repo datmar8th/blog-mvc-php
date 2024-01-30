@@ -34,6 +34,10 @@ $mediaFiles = [
 	'css'	=>	[],
 	'js'	=>	[]
 ];
+$app['LIKES_TYPE'] = [
+    'POST' => 1,
+    'COMMENT' => 2
+];
 $obMediaFiles = $mediaFiles;
 //define('OB',true);
 

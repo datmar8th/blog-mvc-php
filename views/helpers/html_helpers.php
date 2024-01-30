@@ -80,7 +80,6 @@ class html_helpers{
 
 	public static function convert_to_slug($str) {
 		$str = strtolower($str);
-		var_dump($str);
 		$str = trim($str,'-');
 		$str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $str);
 		$str = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);

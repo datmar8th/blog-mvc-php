@@ -59,7 +59,8 @@
 																																'id' => $row['id']
 																															)
 																														)
-																													); ?>">
+																													); ?>"
+																													onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');">
 										<i class="fas fa-trash"></i>
 									</a>
 								</td>

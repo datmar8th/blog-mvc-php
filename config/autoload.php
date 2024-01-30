@@ -5,8 +5,12 @@ function myAutoload($classname) {
 		$filename = "controllers/". $classname .".php";
 	else if(strpos($classname, 'model'))
 		$filename = "models/". $classname .".php";
-	else if(strpos($classname, 'helpers')) 
+	else if(strpos($classname, 'helpers'))
 		$filename = "views/helpers/". $classname .".php";
+	else if(strpos($classname, '_repository')) {
+		$comFolder = str_split($classname, strrpos($classname, '_'))[0];
+		$filename = "repositories/". $classname .".php";
+	}
 	else if(strpos($classname, '_Component')) {
 		$comFolder = str_split($classname, strrpos($classname, '_'))[0];
 		$filename = "components/".$comFolder.'/'. $classname .".php";

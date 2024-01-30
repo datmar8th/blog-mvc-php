@@ -46,6 +46,13 @@ array_push($mediaFiles['css'], RootREL . 'media/bootstrap/css/bootstrap.min.css'
                 </div>
 
                 <div class="row mb-3">
+                    <label for="content-blog" class="col-sm-2 col-form-label mb-1">Category</label>
+                    <div>
+                        <textarea class="col-sm-12" name="data[<?php echo $this->controller; ?>][category]" id="content-blog"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
                     <div class="d-flex justify-content-center">
                         <button name="add_blog" type="submit" class="btn btn-custom-auth text-light">Create</button>
                     </div>

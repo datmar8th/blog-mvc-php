@@ -164,6 +164,12 @@
 	display: none;
 }
 
+.btn-show-more {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 a.reply-btn:hover,
 a.edit-btn:hover,
 a.delete-btn:hover,
@@ -171,3 +177,15 @@ a.like-btn:hover {
 	cursor: pointer;
 }
 
+a.like-btn i:hover {
+	color: rgb(8, 102, 255) !important;
+}
+a.reply-btn i:hover {
+	color: #21b813 !important;
+}
+a.edit-btn i:hover {
+	color: #ffc107 !important;
+}
+a.delete-btn i:hover {
+	color: #dc3545 !important;
+}

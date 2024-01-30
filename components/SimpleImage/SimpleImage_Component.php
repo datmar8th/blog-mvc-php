@@ -18,7 +18,6 @@ class SimpleImage_Component {
 			&& in_array($extension, $allowedExts))
 		{
 			if ($flies["image"]["error"] > 0) {
-				//var_dump($flies["image"]["error"]);
 				echo 'error';
 				return false;
 		    }

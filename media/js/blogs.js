@@ -88,6 +88,7 @@ $(document).ready(function () {
 					$(".comment-ances").append(html);
 					$("#message").val('');
 					updateCommentCount();
+					console.log(data.result);
 				} else {
 					alert("Error!!!");
 				}
@@ -104,7 +105,7 @@ $(document).ready(function () {
 	$(".comment-ances").on("click", ".reply-button", function (e) {
 		e.preventDefault();
 		idCmt = $(this).attr("alt");
-		let reply_comment_content = $(".reply-content" + alt(idCmt)).val();
+		let reply_content = $("#reply-content" + alt(idCmt)).val();
 		let url = rootURL + 'index.php?ctl=comments&act=reply';
 		let id_blog = $(this).data('blog');
 		$.ajax({
@@ -112,13 +113,14 @@ $(document).ready(function () {
 			type: "POST",
 			dataType: 'json',
 			data: {
-				reply_comment_content: reply_comment_content,
+				reply_content: reply_content,
 				blog_id: id_blog,
 				parentId: idCmt
 			}
 		})
 			.done(function (data) {
 				if (data.status === true) {
+					console.log(data.result);
 					let html = renderComment(data.result, "likes", "comments", "add", "reply", "&id=" + data.result.id);
 					path = data.result.path;
 					pathDots = (path.split(".")).length - 1;
@@ -128,7 +130,7 @@ $(document).ready(function () {
 						pathParent = parseInt(path.slice(12, 17));
 					}
 					$(".comment-ances .comment-reply" + alt(pathParent)).append(html);
-					$(".reply-content" + alt(idCmt)).val("");
+					$("#reply-content" + alt(idCmt)).val("");
 					$(".reply-comment" + alt(idCmt)).css("display", "none");
 					updateCommentCount();
 				} else {
@@ -140,16 +142,14 @@ $(document).ready(function () {
 	$(".comment-ances").on("click", ".edit-button", function (e) {
 		e.preventDefault();
 		idCmt = $(this).attr("alt");
-		console.log(idCmt);
-		let edit_comment_content = $(".edit-content" + alt(idCmt)).val();
-		console.log(edit_comment_content);
+		let edit_content = $(".edit-content" + alt(idCmt)).val();
 		let url = rootURL + 'index.php?ctl=comments&act=edit';
 		$.ajax({
 			url: url,
 			type: "POST",
 			dataType: 'json',
 			data: {
-				edit_comment_content: edit_comment_content,
+				edit_content: edit_content,
 				id: idCmt,
 			}
 		})
@@ -265,13 +265,13 @@ $(document).ready(function () {
 							<img class="rounded-circle" src="${avtURL}">\
 						</div>\
 						<div class="form-group col-xs-12 col-sm-9 col-lg-10">\
-							<textarea name="reply_comment_content" class="reply-content form-control" alt="${data.id}" placeholder="Your comment" required></textarea>\
+							<textarea class="reply-content form-control" id="reply-content" alt="${data.id}" placeholder="Your comment" required></textarea>\
 						</div>\
 					</div>\
 				</fieldset>\
 				<div class="d-flex justify-content-end">\
 					<button class="btn btn-light cancel-reply-btn">Cancel</button>\
-					<button name="reply" id="test_btn" type="button" class="btn btn-custom-auth text-light reply-button" alt="${data.id}" data-blog="${blog_id}">Reply</button>\
+					<button name="reply" type="button" class="btn btn-custom-auth text-light reply-button" alt="${data.id}" data-blog="${blog_id}">Reply</button>\
 					
 				</div>\
 			</form>\
@@ -286,7 +286,7 @@ $(document).ready(function () {
 				
 					</div>\
 						<div class="form-group col-xs-12 col-sm-9 col-lg-10">\
-							<textarea name="edit_comment_content" class="edit-content form-control" alt="${data.id}" placeholder="Your comment" required></textarea>\
+							<textarea class="edit-content form-control" alt="${data.id}" placeholder="Your comment" required></textarea>\
 						</div>\
 					</div>\
 				</fieldset>\

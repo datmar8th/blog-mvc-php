@@ -63,7 +63,7 @@ class users_controller extends main_controller
     public function logout() {
         session_unset(); 
         session_destroy(); 
-        header( "Location: ".html_helpers::url(array('ctl'=>'users', 'act'=>'login')));
+        header( "Location: ".html_helpers::url(array('ctl'=>'home')));
     }
 
     public function user_profile() {

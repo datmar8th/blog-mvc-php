@@ -8,7 +8,8 @@ array_push($mediaFiles['css'], RootREL . 'media/bootstrap/css/bootstrap.min.css'
 
 <?php if (isset($_SESSION['auth'])) {
 
-    $params = (isset($this->records)) ? array('id' => $this->records['id']) : ''; ?>
+    $params = (isset($this->records)) ? array('id' => $this->records['id']) : '';
+    ?>
 
     <section class="set-background">
         <section class="container bg-light ">

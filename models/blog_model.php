@@ -29,7 +29,9 @@ class blog_model extends main_model
 
 	public function getAllBlogs()
 	{
-		$query = "SELECT *, blogs.id as blog_id, blogs.created as blogs_created,  (SELECT COUNT(id) FROM comments WHERE comments.blog_id = blogs.id)  AS count_comment FROM `blogs` INNER JOIN `users` ON users.id = blogs.user_id";
+		$query = "SELECT *, blogs.id as blog_id, blogs.created as blogs_created,  (SELECT COUNT(id) FROM comments 
+		WHERE comments.blog_id = blogs.id)  AS count_comment FROM `blogs` 
+		INNER JOIN `users` ON users.id = blogs.user_id ORDER BY `blog_id` DESC";
 		$result = mysqli_query($this->con, $query);
 		$result = $result->fetch_all(MYSQLI_ASSOC);
 		return $result;
@@ -42,4 +44,8 @@ class blog_model extends main_model
 		$result = $result->fetch_all(MYSQLI_ASSOC);
 		return $result;
 	}
+
+	
+
+	
 }
