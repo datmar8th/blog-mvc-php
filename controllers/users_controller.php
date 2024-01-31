@@ -18,6 +18,8 @@ class users_controller extends main_controller
     }
 
     public function login() {
+        if (isset($_GET['redirect']))
+            $_SESSION['redirect'] = ($_GET['redirect']);
         if(isset($_POST['login-user'])) {
 			$userData = $_POST['data'][$this->controller];
             $userCurrent = $this->user->loginData($userData);
@@ -26,7 +28,12 @@ class users_controller extends main_controller
                 return $this->display();
             } else {
                 $_SESSION['auth'] = $userCurrent;
-                header("Location: ". html_helpers::url(array('ctl'=>'home')));
+                if (isset($_SESSION['redirect'])) {
+                    $redirect = $_SESSION['redirect'];
+                    unset($_SESSION['redirect']);
+                    header("Location: ".  $redirect);
+                } else
+                    header("Location: ". html_helpers::url(array('ctl'=>'home')));
             }
 		}
 		$this->display();
@@ -58,11 +65,9 @@ class users_controller extends main_controller
         $this->display();
     }
     
-    
-    
     public function logout() {
-        session_unset(); 
-        session_destroy(); 
+        // session_destroy();
+        unset($_SESSION['auth']);
         header( "Location: ".html_helpers::url(array('ctl'=>'home')));
     }
 
@@ -114,5 +119,4 @@ class users_controller extends main_controller
         }
         $this->display();
     }
-
 }

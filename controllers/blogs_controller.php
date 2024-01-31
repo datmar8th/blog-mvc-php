@@ -24,14 +24,9 @@ class blogs_controller extends main_controller
 		$blogRecord = $blogModel->getRecord($id);
 		$this->setProperty('records', $blogRecord);
 
-		$commentModel = comment_model::getInstance();
-		$commentRecords = $commentModel->getCommentRecord($id);
+		$commentRecords = $blogsRepository->getCommentRecord($id);
 		$this->setProperty('commentRecords', $commentRecords);
-
-
-		//$this->likeRecords=$this->getLike($id);
-		// $likeRecords = $blogsRepository->getLike($id);
-		// $this->setProperty('likeRecords', $likeRecords);
+		
 		$this->display();
 	}
 

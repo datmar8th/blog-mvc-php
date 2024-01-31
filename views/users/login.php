@@ -24,8 +24,7 @@
                                 <?php
                                 $params = (isset($this->record)) ? array('id' => $this->record['id']) : '';
                                 ?>
-                                <form name="register-form" enctype="multipart/form-data" method="POST" action="<?php echo html_helpers::url(array('ctl' => 'users','act' => 'login','params' => $params)); ?>" 
-                                        class="mb-md-5 mt-md-4 pb-5 form-register">
+                                <form name="register-form" enctype="multipart/form-data" method="POST" action="<?php echo html_helpers::url(array('ctl' => 'users', 'act' => 'login', 'params' => $params)); ?>" class="mb-md-5 mt-md-4 pb-5 form-register">
                                     <?php if ($this->errors) { ?>
                                         <div class="message error validation_errors">
                                             <p><?php echo $this->errors ?></p>

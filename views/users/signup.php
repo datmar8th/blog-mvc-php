@@ -63,7 +63,7 @@ global $mediaFiles;
 									<p class="mb-4 error password-error"></p>
 
 									<div class="form-outline">
-									<input name="data[<?php echo $this->controller; ?>][confirm]" type="password" id="confirm-password" class="form-control form-control-lg" required />
+										<input name="data[<?php echo $this->controller; ?>][confirm]" type="password" id="confirm-password" class="form-control form-control-lg" required />
 
 										<label class="form-label" for="password">Confirm Password</label>
 									</div>

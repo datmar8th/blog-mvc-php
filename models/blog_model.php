@@ -44,8 +44,4 @@ class blog_model extends main_model
 		$result = $result->fetch_all(MYSQLI_ASSOC);
 		return $result;
 	}
-
-	
-
-	
 }
